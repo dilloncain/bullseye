@@ -9,22 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var targetValue = 0
+    // variable created to store random value
+    
     @IBOutlet weak var slider: UISlider!
     // Instance variable to reference slider (Data type is UISlider!)
+    @IBOutlet weak var targetLabel: UILabel!
+    // Instance variable to reference label (Data type is UILabel!)
     var currentValue: Int = 0
         
         // Initialize currentValue for slider.
         // Bugfix (Put value where the slider will start at, not 0)
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        currentValue = lroundf(slider.value)
+        startNewRound() // Calling method (viewDidLoad happens just once)
     }
 
     @IBAction func showAlert() {
-        let message = "The value of the slider is: \(currentValue)"
+        let message = "The value of the slider is: \(currentValue)" +
+        "\nThe target value is: \(targetValue)"
         
-        let alert = UIAlertController(title: "Hello, World",
+        let alert = UIAlertController(title: "H, W",
                                     message: message,
                              preferredStyle: .alert)
         
@@ -36,12 +41,27 @@ class ViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
         // When (Hit Me) button is pressed a pop up window (showAlert()) will occur with the title & message above.
+        startNewRound()
+        // After player presses (Hit Me!), the round will start over
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
         currentValue = lroundf(slider.value)
         // When slider is moved, updated slider (slider.value) will display.
+        // Action method (Allows interface builder to see the method and connect it to a button)
     }
     
+    func startNewRound() {
+        targetValue = Int.random(in: 1...100)
+        // Generate random number and assign to targetValue
+        // Regular method
+        currentValue = 50
+        slider.value = Float(currentValue)
+        updateLabels() // Calls updateLabels
+    }
+    
+    func updateLabels() {
+        targetLabel.text = String(targetValue)
+        // Regular method
+    }
 }
-
