@@ -26,8 +26,11 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showAlert() {
-        let message = "The value of the slider is: \(currentValue)" +
-        "\nThe target value is: \(targetValue)"
+        let difference = abs(targetValue - currentValue)
+        let points = 100 - difference
+        // Calculates difference with slider position and keeps number positive
+        let message = "You scored \(points) points" +
+        "\nThe difference is: \(difference)"
         
         let alert = UIAlertController(title: "H, W",
                                     message: message,
