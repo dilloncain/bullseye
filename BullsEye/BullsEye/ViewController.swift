@@ -9,26 +9,33 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var currentValue = 0
+    // Initialize currentValue for slider.
     var targetValue = 0
     // variable created to store random value
-    
+    var scoreValue = 0
+    // Type inference (Int)
     @IBOutlet weak var slider: UISlider!
     // Instance variable to reference slider (Data type is UISlider!)
     @IBOutlet weak var targetLabel: UILabel!
     // Instance variable to reference label (Data type is UILabel!)
-    var currentValue: Int = 0
-        
-        // Initialize currentValue for slider.
-        // Bugfix (Put value where the slider will start at, not 0)
+    @IBOutlet weak var scoreLabel: UILabel!
+    // Instance variable to reference label (Updates score with each round)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewRound() // Calling method (viewDidLoad happens just once)
+        updateLabels() // New target value calculated
     }
 
     @IBAction func showAlert() {
         let difference = abs(targetValue - currentValue)
+        // Built in function provided by Swift (foundation library) - absolute value
         let points = 100 - difference
         // Calculates difference with slider position and keeps number positive
+        
+        scoreValue += points
+        // Keeps track of score
         let message = "You scored \(points) points" +
         "\nThe difference is: \(difference)"
         
@@ -46,6 +53,8 @@ class ViewController: UIViewController {
         // When (Hit Me) button is pressed a pop up window (showAlert()) will occur with the title & message above.
         startNewRound()
         // After player presses (Hit Me!), the round will start over
+        updateLabels()
+        // New target value updated
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
@@ -65,6 +74,7 @@ class ViewController: UIViewController {
     
     func updateLabels() {
         targetLabel.text = String(targetValue)
-        // Regular method
+        // Regular method converts targetValue from int to String
+        scoreLabel.text = String(scoreValue)
     }
 }
