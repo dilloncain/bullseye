@@ -35,12 +35,12 @@ class ViewController: UIViewController {
         updateLabels() // New target value calculated
     }
 
+
     @IBAction func showAlert() {
         let difference = abs(targetValue - currentValue)
         // Built in function provided by Swift (foundation library) - absolute value
         var points = 100 - difference
         // Calculates difference with slider position and keeps number positive
-        
         
         let title: String
         // Type inference only works with one line, hence title:String is required
@@ -107,5 +107,15 @@ class ViewController: UIViewController {
         // Regular method converts scoreValue from int to String
         roundLabel.text = String(roundNumber)
         // Regualr method converts roundNumber from int to String
+    }
+    
+    func newGame() {
+        scoreValue = 0
+        roundNumber = 0
+        startNewRound()
+    }
+    
+    @IBAction func startOver() {
+        newGame()
     }
 }
