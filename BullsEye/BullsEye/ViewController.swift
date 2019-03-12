@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     // Type inference (Int)
     var roundNumber = 0
     // Type inference (Int)
+    
     @IBOutlet weak var slider: UISlider!
     // Instance variable to reference slider (Data type is UISlider!)
     @IBOutlet weak var targetLabel: UILabel!
@@ -28,6 +29,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let roundedValue = slider.value.rounded()
+        currentValue = Int(roundedValue)
         startNewRound() // Calling method (viewDidLoad happens just once)
         updateLabels() // New target value calculated
     }
@@ -35,35 +38,55 @@ class ViewController: UIViewController {
     @IBAction func showAlert() {
         let difference = abs(targetValue - currentValue)
         // Built in function provided by Swift (foundation library) - absolute value
-        let points = 100 - difference
+        var points = 100 - difference
         // Calculates difference with slider position and keeps number positive
+        
+        
+        let title: String
+        // Type inference only works with one line, hence title:String is required
+        if difference == 0{
+            title = "Perfect!"
+            points += 100
+            // Player awarded 100 points if exact
+        } else if difference < 5 {
+            title = "You almost had it!?"
+            if difference == 1 {
+                points += 50
+                // Player awarded 50 points if off by 1
+            }
+        } else if difference < 10 {
+            title = "Pretty close..."
+        } else {
+            title = "Not even close..."
+        }
         
         scoreValue += points
         // Keeps track of score
+        
         let message = "You scored \(points) points" +
         "\nThe difference is: \(difference)"
         
-        let alert = UIAlertController(title: "H, W",
-                                    message: message,
-                             preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Ok",
-                                   style: .default,
-                                 handler: nil)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: {
+            action in
+            self.startNewRound()
+            // Closure to update round after alertis cleared
+        })
         
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
         // When (Hit Me) button is pressed a pop up window (showAlert()) will occur with the title & message above.
-        startNewRound()
-        // After player presses (Hit Me!), the round will start over
-        updateLabels()
-        // New target value updated
+        // After player clears alert message, the round will start over
+        
+        
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
-        currentValue = lroundf(slider.value)
-        // When slider is moved, updated slider (slider.value) will display.
+        let roundedValue = slider.value.rounded()
+        currentValue = Int(roundedValue)
+        // When slider is moved, updated slider (slider.value.rounded()) will display.
         // Action method (Allows interface builder to see the method and connect it to a button)
     }
     
@@ -73,8 +96,8 @@ class ViewController: UIViewController {
         // Regular method
         currentValue = 50
         slider.value = Float(currentValue)
-        updateLabels() // Calls updateLabels
         roundNumber += 1
+        updateLabels() // Calls updateLabels
     }
     
     func updateLabels() {
