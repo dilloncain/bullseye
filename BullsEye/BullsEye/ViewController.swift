@@ -15,12 +15,16 @@ class ViewController: UIViewController {
     // variable created to store random value
     var scoreValue = 0
     // Type inference (Int)
+    var roundNumber = 0
+    // Type inference (Int)
     @IBOutlet weak var slider: UISlider!
     // Instance variable to reference slider (Data type is UISlider!)
     @IBOutlet weak var targetLabel: UILabel!
     // Instance variable to reference label (Data type is UILabel!)
     @IBOutlet weak var scoreLabel: UILabel!
     // Instance variable to reference label (Updates score with each round)
+    @IBOutlet weak var roundLabel: UILabel!
+    // Instance variable to reference label (Updates round)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,11 +74,15 @@ class ViewController: UIViewController {
         currentValue = 50
         slider.value = Float(currentValue)
         updateLabels() // Calls updateLabels
+        roundNumber += 1
     }
     
     func updateLabels() {
         targetLabel.text = String(targetValue)
         // Regular method converts targetValue from int to String
         scoreLabel.text = String(scoreValue)
+        // Regular method converts scoreValue from int to String
+        roundLabel.text = String(roundNumber)
+        // Regualr method converts roundNumber from int to String
     }
 }
