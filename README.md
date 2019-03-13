@@ -7,7 +7,7 @@ Structure:
 - ViewControllers (main, about and author)
 
 Current Status: 
-    - Code is finished.
-    - Constraints still need to be tweaked for auto resizing.
+- Code is finished.
+- Constraints still need to be tweaked for auto resizing.
 
 
