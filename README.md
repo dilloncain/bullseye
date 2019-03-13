@@ -6,8 +6,8 @@ Slider action game where you match the number as close as possible. Score is bas
 Structure:
 - ViewControllers (main, about and author)
 
-- Current Status: 
-    Code is finished.
-    Constraints still need to be tweaked for auto resizing.
+Current Status: 
+    - Code is finished.
+    - Constraints still need to be tweaked for auto resizing.
 
 
