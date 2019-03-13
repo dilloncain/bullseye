@@ -31,8 +31,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let roundedValue = slider.value.rounded()
         currentValue = Int(roundedValue)
-        startNewRound() // Calling method (viewDidLoad happens just once)
-        updateLabels() // New target value calculated
+        startNewGame() // Calling method (viewDidLoad happens just once)
     }
 
 
@@ -64,14 +63,14 @@ class ViewController: UIViewController {
         // Keeps track of score
         
         let message = "You scored \(points) points" +
-        "\nThe difference is: \(difference)"
+        "\n\nThe difference was: \(difference)"
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Ok", style: .default, handler: {
             action in
             self.startNewRound()
-            // Closure to update round after alertis cleared
+            // Closure to update round after alert is cleared
         })
         
         alert.addAction(action)
@@ -115,7 +114,7 @@ class ViewController: UIViewController {
         startNewRound()
     }
     
-    @IBAction func startOver() {
+    @IBAction func startNewGame() {
         newGame()
     }
 }
